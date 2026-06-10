@@ -1,0 +1,57 @@
+# ./src/back_end/pyproject.toml
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tp2-final-project"
+version = "0.1.0"
+description = "..."
+authors = [{ name = "Gabriel Martins S.O.", email = "daturasoldev@gmail.com" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["pydantic>=2.13.4"]
+
+[dependency-groups]
+dev = ["mypy>=2.1.0", "pytest>=9.0.3", "ruff>=0.15.13"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/engine"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/engine", "tests", "README.md", "pyproject.toml"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+# "." so tests import through the package, e.g. `from engine import ...`
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 80
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["I", "F", "E", "W", "ARG", "B", "UP", "SIM", "N", "RUF", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.12"
+plugins = ["pydantic.mypy"]
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unreachable = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+disallow_any_explicit = true

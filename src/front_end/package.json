@@ -1,0 +1,12 @@
+{
+    "name": "tp2-final-project-frontend",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Frontend for the shopping-management and price-sharing system.",
+    "packageManager": "pnpm@10.34.2",
+    "scripts": {
+        "dev": "echo \"No dev server set up yet. Add one here (e.g. vite) when the team picks a framework.\" && exit 1"
+    },
+    "dependencies": {},
+    "devDependencies": {}
+}

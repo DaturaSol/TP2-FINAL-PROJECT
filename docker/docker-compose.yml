@@ -1,0 +1,32 @@
+# ./docker/docker-compose.yml
+name: "tp2-final-project"
+
+services:
+  dev:
+    container_name: tp2-final-project-dev
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dev
+    environment:
+      # Makes printing from Python inside Docker less buggy
+      PYTHONUNBUFFERED: "1"
+      # Must match the spelling used in the Dockerfile, or uv ignores it.
+      UV_PROJECT_ENVIRONMENT: /workspace/src/back_end/.venv
+    # Interactive use
+    tty: true
+    stdin_open: true
+    # Never sleep
+    command: sleep infinity
+    volumes:
+      # The venv is usually heavy; keep it as a named volume.
+      - venv_data:/workspace/src/back_end/.venv
+      # Bind mount for code, editing from VS Code
+      - ..:/workspace:cached
+      # If Docker-in-Docker:
+      # - /var/run/docker.sock:/var/run/docker.sock
+      # Open ports for debug
+    ports:
+      - "8080:8080"
+
+volumes:
+  venv_data:

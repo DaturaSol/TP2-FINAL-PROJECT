@@ -1,0 +1,40 @@
+{
+    "name": "tp2-final-project",
+    "dockerComposeFile": [
+        "../docker/docker-compose.yml"
+    ],
+    "service": "dev",
+    "workspaceFolder": "/workspace",
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "cd src/back_end && uv sync",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // Python
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy",
+                "charliermarsh.ruff",
+                "kevinrose.vsc-python-indent",
+                "ms-python.mypy-type-checker",
+                // Jupyter
+                "ms-toolsai.jupyter",
+                "ms-toolsai.jupyter-renderers",
+                "ms-toolsai.vscode-jupyter-cell-tags",
+                "ms-toolsai.jupyter-keymap",
+                // Organization
+                "tamasfe.even-better-toml",
+                "yzhang.markdown-all-in-one",
+                "davidanson.vscode-markdownlint",
+                // "mermaidchart.vscode-mermaid-chart",
+                // Git
+                "github.vscode-pull-request-github",
+                "eamodio.gitlens",
+                // Docker
+                "ms-azuretools.vscode-docker",
+                "ms-azuretools.vscode-containers"
+            ]
+            // Workspace settings live in .vscode/settings.json
+        }
+    }
+}
