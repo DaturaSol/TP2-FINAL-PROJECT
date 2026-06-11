@@ -10,7 +10,7 @@ others can rely on.
 
 -  > **Name**: Gabriel Martins S.O.  
    > **Matrícula**: 190042656
--  > **Name**: Carlos Eduardo Souza
+-  > **Name**: Carlos Eduardo Souza  
    > **Matrícula**: 211061510
 -  > **Name**: Kaillany Pereira Santos  
    > **Matrícula**: 211055488
