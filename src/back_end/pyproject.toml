@@ -14,7 +14,7 @@ requires-python = ">=3.12"
 dependencies = ["pydantic>=2.13.4"]
 
 [dependency-groups]
-dev = ["mypy>=2.1.0", "pytest>=9.0.3", "ruff>=0.15.13"]
+dev = ["mypy>=2.1.0", "pytest>=9.0.3", "pytest-cov>=7.1.0", "ruff>=0.15.13"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/engine"]
@@ -26,9 +26,24 @@ include = ["src/engine", "tests", "README.md", "pyproject.toml"]
 allow-direct-references = true
 
 [tool.pytest.ini_options]
-# "." so tests import through the package, e.g. `from engine import ...`
 pythonpath = ["."]
 testpaths = ["tests"]
+addopts = "--cov=engine --cov-config=pyproject.toml --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["engine"]
+branch = true
+omit = ["*/tests/*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if __name__ == .__main__.",
+    "raise NotImplementedError",
+]
 
 [tool.ruff]
 line-length = 80
