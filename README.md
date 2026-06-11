@@ -35,8 +35,8 @@ others can rely on.
 - .vscode/         Editor settings
 - docker/          Dockerfiles + compose orchestration
 - data/            SQLite3 database files (backend only)
-- src/back_end/    Python — server & logic
-- src/front_end/   JavaScript — user interface
+- src/back_end/    Python - server & logic
+- src/front_end/   JavaScript - user interface
 
 ## Quick start
 
