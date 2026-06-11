@@ -1,12 +1,50 @@
 {
-    "name": "tp2-final-project-frontend",
-    "version": "0.1.0",
-    "private": true,
-    "description": "Frontend for the shopping-management and price-sharing system.",
-    "packageManager": "pnpm@10.34.2",
-    "scripts": {
-        "dev": "echo \"No dev server set up yet. Add one here (e.g. vite) when the team picks a framework.\" && exit 1"
-    },
-    "dependencies": {},
-    "devDependencies": {}
+  "name": "tp2-final-project-frontend",
+  "description": "Frontend for the shopping-management and price-sharing system.",
+  "version": "1.0.0",
+  "type": "module",
+  "packageManager": "npm@11.16.0",
+  "keywords": [
+    "vanilla",
+    "javascript",
+    "template",
+    "boilerplate",
+    "boilerplate-template",
+    "postcss",
+    "eslint",
+    "prettier",
+    "scaffold",
+    "scaffold-template",
+    "vite",
+    "vitejs",
+    "vite-template",
+    "vitejs-template"
+  ],
+  "scripts": {
+    "dev": "vite --host --open",
+    "lint": "eslint --ext .js ./",
+    "lint:fix": "eslint --fix --ext .js ./",
+    "format": "prettier --write \"./**/*.{js,jsx,json,css}\"",
+    "build": "vite build",
+    "preview": "vite preview --open",
+    "buildpreview": "vite build && vite preview --open"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "autoprefixer": "^10.5.0",
+    "cssnano": "^8.0.1",
+    "eslint": "^10",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.6.0",
+    "postcss": "^8.5.15",
+    "postcss-nesting": "^14.0.0",
+    "prettier": "^3.8.4",
+    "vite": "^8.0.16",
+    "vite-plugin-eslint2": "^5.1.0"
+  },
+  "dependencies": {
+    "the-new-css-reset": "^1.11.3"
+  }
 }
