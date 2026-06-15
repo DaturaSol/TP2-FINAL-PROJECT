@@ -11,7 +11,13 @@ authors = [{ name = "Gabriel Martins S.O.", email = "daturasoldev@gmail.com" }]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pydantic>=2.13.4"]
+dependencies = [
+    "fastapi>=0.137.1",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.1",
+    "sqlalchemy>=2.0.51",
+    "uvicorn>=0.49.0",
+]
 
 [dependency-groups]
 dev = ["mypy>=2.1.0", "pytest>=9.0.3", "pytest-cov>=7.1.0", "ruff>=0.15.13"]
