@@ -3,7 +3,7 @@
 
 from sqlalchemy import text
 
-from engine.database.session import init_db_engine
+from engine.database._session import init_db_engine
 from engine.settings import Settings
 
 

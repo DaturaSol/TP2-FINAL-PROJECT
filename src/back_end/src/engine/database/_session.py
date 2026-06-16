@@ -1,4 +1,4 @@
-# ./src/back_end/src/engine/database/session.py
+# ./src/back_end/src/engine/database/_session.py
 """Starts up and generates sessions to use the database.
 
 SQLite3 is not async, but since we might have multiple
