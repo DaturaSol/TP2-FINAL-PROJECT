@@ -16,8 +16,8 @@ others can rely on.
    > **Matrícula**: 211055488
 -  > **Name**: Kassio Gandara de Souza  
    > **Matrícula**: 180140540
--  > **Name**: <--->  
-   > **Matrícula**: <--->
+-  > **Name**: Pedro Souza Batista 
+   > **Matrícula**: 211055924
 -  > **Name**: <--->  
    > **Matrícula**: <--->
 -  > **Name**: <--->  
