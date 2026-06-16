@@ -4,6 +4,7 @@
 from pydantic import BaseModel
 
 
+# TODO: test this, add other methods
 class LoggingEntry(BaseModel):
     """Information passed when logging."""
 

@@ -3,6 +3,7 @@
 from pydantic import BaseModel
 
 
+# TODO: Missing tests
 class UserBasicEntry(BaseModel):
     """Basic user info to send back."""
 
