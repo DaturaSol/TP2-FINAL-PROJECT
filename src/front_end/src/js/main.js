@@ -1,60 +1,163 @@
-import 'the-new-css-reset/css/reset.css';
-import '../styles/style.css';
+// ====== elementos da tela ======
 
-import viteLogo from '../assets/images/vite.svg';
-import javascriptLogo from '../assets/images/javascript.svg';
-import heroImg from '../assets/images/hero.png';
+const home = document.getElementById('home');
+const loginSection = document.getElementById('login');
+const cadastroSection = document.getElementById('cadastro');
+const dashboard = document.getElementById('dashboard');
 
-const dependencies = [
-  'ESlint',
-  'Prettier',
-  'PostCSS',
-  'PostCSS Nesting',
-  'Autoprefixer',
-  'CSS Nano',
-  'CSS Reset',
-];
+// ====== trocas de telas (controle de navagacao)======
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <div id="center">
-      <a class="hero" href="https://vitejs.dev" target="_blank">
-        <img src="${heroImg}" class="base" width="170" height="179">
-        <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-        <img src="${viteLogo}" class="vite" alt="Vite logo" />
-      </a>
-    </div>
+function esconderTodas() {
+  home.classList.add('hidden');
+  loginSection.classList.add('hidden');
+  cadastroSection.classList.add('hidden');
+  dashboard.classList.add('hidden');
+}
 
-    <h1>Vanilla Vite!</h1>
-    <h2>Template by <cite><a class="author" href="https://github.com/Barata-Ribeiro" target="_blank" rel="noopener noreferrer">Barata-Ribeiro</a></cite></h2>
-    
-    <div class="card">
-      <button id="counter" type="button"></button>
-      <a class="gitRepo" href="https://github.com/Barata-Ribeiro/vite-vanilla-js-template" target="_blank" rel="noopener noreferrer">Repository</a>
-    </div>
-    
-    <div class="tags">
-    </div>
+function mostrarHome() {
+  esconderTodas();
+  home.classList.remove('hidden');
+}
 
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more about Vite.js.
-    </p>
-  </div>
-`;
+function mostrarLogin() {
+  esconderTodas();
+  loginSection.classList.remove('hidden');
+}
 
-const setupCounter = (element) => {
-  let counter = 0;
-  const counterElement = element;
-  const setCounter = (count) => {
-    counter = count;
-    counterElement.innerHTML = `count is ${counter}`;
+function mostrarCadastro() {
+  esconderTodas();
+  cadastroSection.classList.remove('hidden');
+}
+
+function mostrarDashboard(usuario) {
+  esconderTodas();
+  dashboard.classList.remove('hidden');
+
+  document.getElementById('saudacao').textContent = `Olá, ${usuario.nome}!`;
+}
+
+// ====== regras de negocios e autenticacao ======
+
+function cadastrar() {
+  const nome = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value.trim();
+
+  const mensagem = document.getElementById('mensagem');
+  //valicação de campos vazios
+  if (!nome || !email || !senha) {
+    mensagem.textContent = 'Preencha todos os campos.';
+    return;
+  }
+
+  // Recupera usuários já cadastrados
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+  // Verifica email duplicado
+  const emailExiste = usuarios.find(
+    (usuario) => usuario.email.toLowerCase() === email.toLowerCase(),
+  );
+
+  if (emailExiste) {
+    mensagem.textContent = 'Este e-mail já está cadastrado.';
+    return;
+  }
+
+  const usuario = {
+    nome,
+    email,
+    senha,
   };
-  element.addEventListener('click', () => setCounter(counter + 1));
-  setCounter(0);
-};
 
-setupCounter(document.querySelector('#counter'));
+  usuarios.push(usuario);
 
-document.querySelector('.tags').innerHTML = dependencies
-  .map((dependency) => `<p>${dependency}</p>`)
-  .join('');
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+  mensagem.textContent = 'Conta criada com sucesso!';
+
+  setTimeout(() => {
+    mostrarLogin();
+  }, 1000);
+}
+// ====== login ======
+
+function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const senha = document.getElementById('login-senha').value.trim();
+
+  const mensagem = document.getElementById('mensagem-login');
+
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+
+  const usuario = usuarios.find((u) => u.email === email && u.senha === senha);
+
+  if (!usuario) {
+    mensagem.textContent = 'usuário não encontrado ou dados incorretos.';
+    return;
+  }
+  if (usuario.email === email && usuario.senha === senha) {
+    mensagem.textContent = 'Login realizado com sucesso!';
+    mostrarDashboard(usuario);
+  } else {
+    mensagem.textContent = 'E-mail ou senha inválidos.';
+  }
+}
+
+//===== limpeza de campos ======
+function limparCampos() {
+  // Limpa os inputs de login
+  document.getElementById('login-email').value = '';
+  document.getElementById('login-senha').value = '';
+  document.getElementById('mensagem-login').textContent = '';
+
+  // Limpa os inputs de cadastro
+  document.getElementById('nome').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('senha').value = '';
+  document.getElementById('mensagem').textContent = '';
+}
+
+// ====== LOGOUT ======
+
+function logout() {
+  limparCampos(); // Zera todos os formulários
+  mostrarHome(); // Volta para a página inicial
+}
+
+// ====== events ======
+
+// Navegação para a Home
+document.getElementById('logoHome').addEventListener('click', mostrarHome);
+document.getElementById('voltarHome').addEventListener('click', (e) => {
+  e.preventDefault();
+  mostrarHome();
+});
+
+// Navegação para o Login
+document.getElementById('abrirLogin').addEventListener('click', mostrarLogin);
+document.getElementById('link-ir-login').addEventListener('click', (e) => {
+  e.preventDefault();
+  mostrarLogin();
+});
+
+// Navegação para o Cadastro
+document
+  .getElementById('abrirCadastro')
+  .addEventListener('click', mostrarCadastro);
+document
+  .getElementById('heroCadastro')
+  .addEventListener('click', mostrarCadastro);
+document.getElementById('link-ir-cadastro').addEventListener('click', (e) => {
+  e.preventDefault();
+  mostrarCadastro();
+});
+
+// Ações Principais
+document.getElementById('criarConta').addEventListener('click', cadastrar);
+document.getElementById('fazerLogin').addEventListener('click', login);
+document.getElementById('btn-sair').addEventListener('click', logout);
+
+// =========================================================
+// 6. INICIALIZAÇÃO
+// =========================================================
+mostrarHome();
