@@ -14,8 +14,8 @@ others can rely on.
    > **Matrícula**: 211061510
 -  > **Name**: Kaillany Pereira Santos  
    > **Matrícula**: 211055488
--  > **Name**: <--->  
-   > **Matrícula**: <--->
+-  > **Name**: Kassio Gandara de Souza  
+   > **Matrícula**: 180140540
 -  > **Name**: <--->  
    > **Matrícula**: <--->
 -  > **Name**: <--->  
