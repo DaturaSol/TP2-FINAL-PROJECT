@@ -16,8 +16,8 @@ others can rely on.
    > **Matrícula**: 211055488
 -  > **Name**: Kassio Gandara de Souza  
    > **Matrícula**: 180140540
--  > **Name**: <--->  
-   > **Matrícula**: <--->
+-  > **Name**: Erick Edmond Matrosov Mazépas 
+   > **Matrícula**: 241032377
 -  > **Name**: <--->  
    > **Matrícula**: <--->
 -  > **Name**: <--->  
