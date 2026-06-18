@@ -20,7 +20,7 @@ class User(CentralDeclarativeBase):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String, unique=True)
-    passwd: Mapped[str] = mapped_column(String(100))
+    passwd: Mapped[str] = mapped_column(String(128))
     name: Mapped[str | None] = mapped_column(String(50))
     birthday: Mapped[datetime.datetime | None] = mapped_column(DateTime)
 
