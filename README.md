@@ -18,8 +18,8 @@ others can rely on.
    > **Matrícula**: 180140540
 -  > **Name**: Erick Edmond Matrosov Mazépas 
    > **Matrícula**: 241032377
--  > **Name**: <--->  
-   > **Matrícula**: <--->
+-  > **Name**: Pedro Souza Batista  
+   > **Matrícula**: 211055924
 -  > **Name**: <--->  
    > **Matrícula**: <--->
 -  > **Name**: <--->  
