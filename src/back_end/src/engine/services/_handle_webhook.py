@@ -54,7 +54,7 @@ async def handle_webhook(
                 email=user.email,
             )
             return BackEndRequest(
-                object_="backend_payload",
+                object="backend_payload",
                 entry=[Entry(user_basic_info=user_entry)],
             )
 
