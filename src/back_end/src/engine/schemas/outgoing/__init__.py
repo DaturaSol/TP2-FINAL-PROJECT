@@ -23,4 +23,4 @@ class BackEndRequest(BaseModel):
     entry: list[Entry]
 
 
-__all__ = ["BackEndRequest"]
+__all__ = ["BackEndRequest", "Entry", "UserBasicEntry"]
