@@ -13,6 +13,9 @@ export default defineConfig({
     rolldownOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        login: resolve(__dirname, 'src/login/login.html'),
+        cadastro: resolve(__dirname, 'src/cadastro/cadastro.html'),
+        dashboard: resolve(__dirname, 'src/dashboard/dashboard.html'),
       },
       output: {
         manualChunks(id) {

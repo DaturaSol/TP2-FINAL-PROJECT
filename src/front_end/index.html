@@ -13,64 +13,47 @@
   </head>
 
   <body>
-    <!-- ================================================================= -->
-    <!-- BARRA DE NAVEGAÇÃO (NAVBAR)                                       -->
-    <!-- fica no topo e contém o logotipo e os botões de menu principais   -->
-    <!-- ================================================================= -->
     <nav class="navbar">
-      <div class="logo" id="logoHome" style="cursor: pointer">SmartMarket</div>
+      <div class="logo">
+        <a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a>
+      </div>
 
       <div class="menu">
-        <a href="#" id="voltarHome">Início</a>
+        <a href="/">Início</a>
         <a href="#">Categorias</a>
 
         <!-- botões para trocar telas -->
-        <button id="abrirLogin" class="btn-outline">Entrar</button>
-        <button id="abrirCadastro">Criar Conta</button>
+        <a href="/src/login/login.html" id="abrirLogin" class="btn-outline" style="text-decoration: none; padding: 10px 20px; border-radius: 5px;">Entrar</a>
+        <a href="/src/cadastro/cadastro.html" id="abrirCadastro" style="text-decoration: none; background-color: var(--primary-color, #ff6b6b); color: white; padding: 10px 20px; border-radius: 5px;">Criar Conta</a>
       </div>
     </nav>
 
-    <!-- ================================================================= -->
-    <!-- SEÇÃO 1: TELA INICIAL (HOME)                                      -->
-    <!-- Contém a apresentação do sistema e as categorias em destaque      -->
-    <!-- ================================================================= -->
     <section id="home">
       <div class="hero">
-        <!-- Parte esquerda: Textos de chamada e busca -->
         <div class="hero-left">
           <span class="tag"> Compare preços em segundos </span>
-
           <h1>Compare preços e economize em cada compra</h1>
-
           <p>
             Organize suas listas de compras, encontre os melhores preços e
             economize nos mercados da sua região.
           </p>
 
-          <!-- Campo de busca visual (pronto para receber lógica no futuro) -->
           <div class="search-home">
             <input
               type="text"
               placeholder="Buscar produtos, marcas e muito mais..."
             />
-
             <button>Buscar</button>
           </div>
 
-          <!-- abrir a tela de cadastro -->
           <button id="heroCadastro">Criar Conta Gratuitamente</button>
         </div>
 
-        <!-- Parte direita: Imagem ilustrativa do mercado -->
         <div class="hero-right">
           <img src="src/assets/images/mercado.jpg" alt="Supermercado" />
         </div>
       </div>
 
-      <!-- ================================================================= -->
-      <!-- CATEGORIAS (Ainda dentro da Home) -->
-      <!-- talvez em uma section separada e com back implementado para puxar dados dos produtos -->
-      <!-- ================================================================= -->
       <section class="categorias">
         <h2>Categorias Populares</h2>
 
@@ -94,136 +77,8 @@
       </section>
     </section>
 
-    <!-- ================================================================= -->
-    <!-- SEÇÃO 2: TELA DE LOGIN                                            -->
-    <!-- oculta pelo js                                                    -->
-    <!-- ================================================================= -->
-    <section id="login" class="hidden">
-      <div class="cadastro-container">
-        <div class="cadastro-banner">
-          <h1>SmartMarket</h1>
-
-          <p>Bem-vindo de volta! Acesse seus dados salvos.</p>
-        </div>
-
-        <!-- Formulário na lateral direita -->
-        <div class="cadastro-form">
-          <h2>Entrar</h2>
-
-          <!-- Campo para digitar o e-mail -->
-          <input type="email" id="login-email" placeholder="E-mail" />
-
-          <!-- espaço para mensagens de erro do email -->
-          <p id="erro-login-email" class="mensagem-erro"></p>
-
-          <!-- Campo para digitar a senha -->
-          <input type="password" id="login-senha" placeholder="Senha" />
-
-          <!-- espaço para erros da senha -->
-          <p id="erro-login-senha" class="mensagem-erro"></p>
-
-          <button id="fazerLogin">Entrar</button>
-
-          <!-- Espaço para mensagens gerais, como "Login efetuado com sucesso!" -->
-          <p id="mensagem-login"></p>
-
-          <!-- Link rápido para trocar da tela de Login para a tela de Cadastro -->
-          <p class="switch-link">
-            Não tem conta?
-
-            <a href="#" id="link-ir-cadastro"> Crie uma agora </a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- SEÇÃO 3: TELA DE CADASTRO                                         -->
-    <!-- oculta pelo js                                                    -->
-    <!-- ================================================================= -->
-    <section id="cadastro" class="hidden">
-      <div class="cadastro-container">
-        <div class="cadastro-banner">
-          <h1>SmartMarket</h1>
-
-          <p>Crie sua conta.</p>
-        </div>
-
-        <div class="cadastro-form">
-          <h2>Criar Conta</h2>
-
-          <input type="text" id="nome" placeholder="Nome completo" />
-          <p id="erro-nome" class="mensagem-erro"></p>
-
-          <input type="email" id="email" placeholder="E-mail" />
-          <p id="erro-email" class="mensagem-erro"></p>
-
-          <input type="password" id="senha" placeholder="Senha" />
-          <p id="erro-senha" class="mensagem-erro"></p>
-
-          <button id="criarConta">Criar Conta</button>
-
-          <!-- msgs gerais de sucesso ou falha no cadastro aqui -->
-          <p id="mensagem"></p>
-
-          <!-- link para ir para a tela de login -->
-          <p class="switch-link">
-            Já tem conta?
-
-            <a href="#" id="link-ir-login"> Fazer login </a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- SEÇÃO 4: DASHBOARD (ÁREA DO USUÁRIO LOGADO)                       -->
-    <!-- Oculta pelo js. Só aparece após o login bem-sucedido              -->
-    <!-- ================================================================= -->
-    <section id="dashboard" class="hidden">
-      <div class="dashboard-top">
-        <h1 id="saudacao"></h1>
-
-        <p>Bem-vinda ao SmartMarket</p>
-
-        <!-- botão para sair da conta -->
-        <button id="btn-sair" class="btn-outline" style="margin-top: 20px">
-          Sair da Conta
-        </button>
-      </div>
-
-      <!-- Resumo estatistico do usuario (implementar direito com dados reais do back) -->
-      <div class="cards-dashboard">
-        <div class="dashboard-card">
-          <h3>Listas</h3>
-          <span>0</span>
-        </div>
-
-        <div class="dashboard-card">
-          <h3>Produtos</h3>
-          <span>0</span>
-        </div>
-
-        <div class="dashboard-card">
-          <h3>Contribuições</h3>
-          <span>0</span>
-        </div>
-      </div>
-
-      <div class="acoes">
-        <button>Nova Lista</button>
-        <button>Comparar Produtos</button>
-        <button>Histórico</button>
-      </div>
-
-      <div class="dashboard-card grande">
-        <h2>Últimas Pesquisas</h2>
-
-        <p>Nenhuma pesquisa realizada.</p>
-      </div>
-    </section>
-
     <!-- connect js ao html -->
-    <script type="module" src="src/js/main.js"></script>
+    <link rel="stylesheet" href="/src/home/home.css" />
+    <script type="module" src="/src/home/home.js"></script>
   </body>
 </html>

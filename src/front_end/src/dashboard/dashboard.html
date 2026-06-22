@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - SmartMarket</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/assets/icons-supermercado-.png"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+      <link rel="stylesheet" href="/src/dashboard/dashboard.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo"><a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a></div>
+      <div class="menu">
+        <a href="/">Início</a>
+        <button id="btn-sair-nav" class="btn-outline">Sair</button>
+      </div>
+    </nav>
+
+    <section id="dashboard">
+      <div class="dashboard-top">
+        <h1 id="saudacao">Olá!</h1>
+        <p>Bem-vinda ao SmartMarket</p>
+        <button id="btn-sair" class="btn-outline" style="margin-top: 20px">
+          Sair da Conta
+        </button>
+      </div>
+
+      <div class="cards-dashboard">
+        <div class="dashboard-card">
+          <h3>Listas</h3>
+          <span>0</span>
+        </div>
+        <div class="dashboard-card">
+          <h3>Produtos</h3>
+          <span>0</span>
+        </div>
+        <div class="dashboard-card">
+          <h3>Contribuições</h3>
+          <span>0</span>
+        </div>
+      </div>
+
+      <div class="acoes">
+        <button>Nova Lista</button>
+        <button>Comparar Produtos</button>
+        <button>Histórico</button>
+      </div>
+
+      <div class="dashboard-card grande">
+        <h2>Últimas Pesquisas</h2>
+        <p>Nenhuma pesquisa realizada.</p>
+      </div>
+    </section>
+
+    <script type="module" src="/src/dashboard/dashboard.js"></script>
+  </body>
+</html>

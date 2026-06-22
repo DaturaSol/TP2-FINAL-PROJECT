@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SmartMarket</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/assets/icons-supermercado-.png"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+      <link rel="stylesheet" href="/src/login/login.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo"><a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a></div>
+      <div class="menu">
+        <a href="/">Início</a>
+        <a href="/">Categorias</a>
+        <!-- botões para trocar telas -->
+        <a href="/src/login/login.html" class="btn-outline" style="text-decoration: none; padding: 10px 20px; border-radius: 5px;">Entrar</a>
+        <a href="/src/cadastro/cadastro.html" style="text-decoration: none; background-color: var(--primary-color, #ff6b6b); color: white; padding: 10px 20px; border-radius: 5px;">Criar Conta</a>
+      </div>
+    </nav>
+
+    <section id="login">
+      <div class="cadastro-container">
+        <div class="cadastro-banner">
+          <h1>SmartMarket</h1>
+          <p>Bem-vindo de volta! Acesse seus dados salvos.</p>
+        </div>
+
+        <div class="cadastro-form">
+          <h2>Entrar</h2>
+
+          <input type="email" id="login-email" placeholder="E-mail" />
+          <p id="erro-login-email" class="mensagem-erro"></p>
+
+          <input type="password" id="login-senha" placeholder="Senha" />
+          <p id="erro-login-senha" class="mensagem-erro"></p>
+
+          <button id="fazerLogin">Entrar</button>
+          <p id="mensagem-login"></p>
+
+          <p class="switch-link">
+            Não tem conta?
+            <a href="/src/cadastro/cadastro.html" id="link-ir-cadastro"> Crie uma agora </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/login/login.js"></script>
+  </body>
+</html>
