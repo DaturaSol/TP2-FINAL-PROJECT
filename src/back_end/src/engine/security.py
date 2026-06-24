@@ -11,12 +11,16 @@ import base64
 import hashlib
 import hmac
 import secrets
+from datetime import datetime, timedelta, timezone
+import jwt
 
 _ALGORITHM = "sha256"
 _ITERATIONS = 600_000  # OWASP 2023 minimum for PBKDF2-HMAC-SHA256
 _SALT_BYTES = 16
 _SEP = "$"
 
+SECRET_KEY = "chave-secreta-do-smartmarket-mudar-depois"
+JWT_ALGORITHM = "HS256"
 
 def hash_password(password: str) -> str:
     """Hash a plaintext password using PBKDF2-HMAC-SHA256 with a random salt.
@@ -71,3 +75,19 @@ def verify_password(password: str, hashed: str) -> bool:
     dk = hashlib.pbkdf2_hmac(_ALGORITHM, password.encode(), salt, iterations)
     candidate_b64 = base64.urlsafe_b64encode(dk).rstrip(b"=").decode()
     return hmac.compare_digest(candidate_b64, stored_b64)
+
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
+    
+    to_encode = data.copy()
+    
+    if expires_delta:
+        expire = datetime.now(timezone.utc) + expires_delta
+    else:
+        expire = datetime.now(timezone.utc) + timedelta(hours=2)
+    
+    to_encode.update({"exp": expire})
+    
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+
+def decode_access_token(token: str) -> dict | None:
