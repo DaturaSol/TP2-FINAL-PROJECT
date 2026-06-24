@@ -10,16 +10,16 @@ others can rely on.
 
 -  > **Name**: Gabriel Martins S.O.  
    > **Matrícula**: 190042656
--  > **Name**: Carlos Eduardo Souza
+-  > **Name**: Carlos Eduardo Souza  
    > **Matrícula**: 211061510
 -  > **Name**: Kaillany Pereira Santos  
    > **Matrícula**: 211055488
--  > **Name**: <--->  
-   > **Matrícula**: <--->
--  > **Name**: <--->  
-   > **Matrícula**: <--->
--  > **Name**: <--->  
-   > **Matrícula**: <--->
+-  > **Name**: Kassio Gandara de Souza  
+   > **Matrícula**: 180140540
+-  > **Name**: Erick Edmond Matrosov Mazépas 
+   > **Matrícula**: 241032377
+-  > **Name**: Pedro Souza Batista  
+   > **Matrícula**: 211055924
 -  > **Name**: <--->  
    > **Matrícula**: <--->
 -  > **Name**: <--->  

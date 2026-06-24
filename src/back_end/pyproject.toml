@@ -11,10 +11,25 @@ authors = [{ name = "Gabriel Martins S.O.", email = "daturasoldev@gmail.com" }]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["pydantic>=2.13.4"]
+dependencies = [
+    "aiohttp>=3.14.1",
+    "aiosqlite>=0.22.1",
+    "fastapi>=0.137.1",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.1",
+    "sqlalchemy>=2.0.51",
+    "uvicorn>=0.49.0",
+]
 
 [dependency-groups]
-dev = ["mypy>=2.1.0", "pytest>=9.0.3", "pytest-cov>=7.1.0", "ruff>=0.15.13"]
+dev = [
+    "httpx>=0.28.1",
+    "mypy>=2.1.0",
+    "pytest>=9.0.3",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.13",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/engine"]
@@ -29,6 +44,8 @@ allow-direct-references = true
 pythonpath = ["."]
 testpaths = ["tests"]
 addopts = "--cov=engine --cov-config=pyproject.toml --cov-report=term-missing"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 
 [tool.coverage.run]
 source = ["engine"]
