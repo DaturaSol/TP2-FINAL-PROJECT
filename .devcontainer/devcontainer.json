@@ -35,7 +35,9 @@
                 "ms-azuretools.vscode-containers",
                 // Front-end
                 "dbaeumer.vscode-eslint",
-                "esbenp.prettier-vscode"
+                "esbenp.prettier-vscode",
+                // Nice to have
+                "qwtel.sqlite-viewer"
             ]
             // Workspace settings live in .vscode/settings.json
         }

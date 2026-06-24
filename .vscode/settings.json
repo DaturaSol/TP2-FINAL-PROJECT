@@ -6,6 +6,10 @@
     "python.defaultInterpreterPath": "/workspace/src/back_end/.venv/bin/python",
     "python.terminal.activateEnvInCurrentTerminal": true,
     "python.testing.pytestEnabled": true,
+    "python.testing.cwd": "${workspaceFolder}/src/back_end",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
     // Formatting & Linting (Powered by Ruff)
     "editor.formatOnSave": true,
     "[python]": {
