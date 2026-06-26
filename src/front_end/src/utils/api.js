@@ -4,7 +4,7 @@ import axios from 'axios';
 const api = axios.create({
   // O Vite injeta as variáveis do .env através do import.meta.env
   // O fallback para localhost ajuda caso o .env não exista acidentalmente.
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
 });
 
 // Interceptor de requisições:
