@@ -10,6 +10,7 @@ This frontend uses a lightweight, modern web stack:
 
 - **Vite:** Lightning-fast build tool and development server.
 - **Vanilla JavaScript:** Native ES modules without the overhead of heavy UI frameworks.
+- **Axios:** Promise-based HTTP client to handle requests to the Backend API.
 - **PostCSS:** Used for CSS processing, allowing nested CSS (via `postcss-nesting`) and automatically adding vendor prefixes.
 - **ESLint & Prettier:** Ensures consistent code style and catches syntax errors early.
 
@@ -40,20 +41,26 @@ Vite will start a local server (typically at `http://localhost:5173`) and automa
 
 ## How to code in the project
 
-- **HTML:** Edit `index.html` at the root for your main markup.
-- **JavaScript:** Write your logic in `src/js/main.js` (or add new modules there and import them).
-- **CSS:** Add styles to `src/styles/style.css`. You can use CSS nesting (e.g., standard `&` selector rules) thanks to PostCSS.
-- **Static Assets:** Place images or other static files in `src/assets/images/` or the public `public/` directory depending on.
+This application is built as a **Multi-Page Application (MPA)** using a feature-based folder architecture structure. 
+
+- **Feature Folders:** Pages are divided into modules (e.g., `src/login/`, `src/cadastro/`, `src/dashboard/`). Each directory contains its own `.html`, `.js`, and `.css` files.
+- **Home/Landing Page:** The root `index.html` is the Home page. Its specific logic and sub-styles are stored in `src/home/`.
+- **Global CSS:** Add global site-wide styling rules to `src/styles/style.css`.
+- **Shared Utilities:** Global JS logic, such as the `api.js` Axios wrapper and `auth.js` session managers, live in `src/utils/`.
+- **Static Assets:** Place images or other static files in `src/assets/images/` or the public `public/` directory depending on their usage.
 
 ## Talking to the backend
 
-The backend runs on **port 8080** (see `docker/docker-compose.yml`). When you
-fetch data, point your requests at `http://localhost:8080`.
+The backend endpoint is controlled by your Environment files:
+
+1. Always copy `.env.example` into a local `.env` file before developing.
+2. Inside `.env`, set `VITE_API_BASE_URL` to point to your backend. *(e.g., `VITE_API_BASE_URL=http://localhost:8080/api`)*
+3. **DO NOT import Axios directly**. Always import the centralized API configuration from `src/utils/api.js`. This central wrapper automatically injects authentication tokens (via LocalStorage) into your Request Headers!
 
 ## What NOT to do
 
 - Don't edit files in `back_end/` or `data/` — those are the backend's.
-- Don't commit the `node_modules/` folder (it's ignored automatically).
+- Don't commit the `node_modules/` or `.env` file (they are ignored automatically).
 
 ## Scripts
 
@@ -92,14 +99,20 @@ This is the structure of the project:
 ├── src                     # Source code
 │   ├── assets              # General assets for your project
 │   │   ├── images          # Store your images here
-│   ├── js                  # Javascript files of your project
-│   └── styles              # CSS styles for your project
+│   ├── cadastro            # Cadastro Feature (HTML, JS, CSS)
+│   ├── dashboard           # Dashboard Feature (HTML, JS, CSS)
+│   ├── home                # Home Feature modules for index.html (JS, CSS)
+│   ├── login               # Login Feature (HTML, JS, CSS)
+│   ├── styles              # Global CSS styles (style.css)
+│   └── utils               # Utilities like auth.js and api.js configurations
 ├── .editorconfig           # Configuration for the EditorConfig plugin
+├── .env                    # Local environment variables
+├── .env.example            # Template for environment variables
 ├── eslint.config.js        # Configuration for ESLint (Flat Config API)
 ├── .gitignore              # Files and folders to be ignored by Git
 ├── .prettierignore         # Files to be ignored by Prettier
 ├── .prettierrc             # Configuration for Prettier
-├── index.html              # The root HTML file
+├── index.html              # The root HTML file (Home Page)
 ├── package-lock.json       # Lockfile for your project's dependencies
 ├── package.json            # Defines your project and its dependencies
 ├── postcss.config.cjs      # Configuration for PostCSS

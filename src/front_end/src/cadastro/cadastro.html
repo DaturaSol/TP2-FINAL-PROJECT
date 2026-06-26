@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - SmartMarket</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/assets/icons-supermercado-.png"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+      <link rel="stylesheet" href="/src/cadastro/cadastro.css" />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo"><a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a></div>
+      <div class="menu">
+        <a href="/">Início</a>
+        <a href="/">Categorias</a>
+        <a href="/src/login/login.html" class="btn-outline" style="text-decoration: none; padding: 10px 20px; border-radius: 5px;">Entrar</a>
+        <a href="/src/cadastro/cadastro.html" style="text-decoration: none; background-color: var(--primary-color, #ff6b6b); color: white; padding: 10px 20px; border-radius: 5px;">Criar Conta</a>
+      </div>
+    </nav>
+
+    <section id="cadastro">
+      <div class="cadastro-container">
+        <div class="cadastro-banner">
+          <h1>SmartMarket</h1>
+          <p>Crie sua conta.</p>
+        </div>
+
+        <div class="cadastro-form">
+          <h2>Criar Conta</h2>
+
+          <input type="text" id="nome" placeholder="Nome completo" />
+          <p id="erro-nome" class="mensagem-erro"></p>
+
+          <input type="email" id="email" placeholder="E-mail" />
+          <p id="erro-email" class="mensagem-erro"></p>
+
+          <input type="password" id="senha" placeholder="Senha" />
+          <p id="erro-senha" class="mensagem-erro"></p>
+
+          <button id="criarConta">Criar Conta</button>
+          <p id="mensagem"></p>
+
+          <p class="switch-link">
+            Já tem conta?
+            <a href="/src/login/login.html" id="link-ir-login"> Fazer login </a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/cadastro/cadastro.js"></script>
+  </body>
+</html>
