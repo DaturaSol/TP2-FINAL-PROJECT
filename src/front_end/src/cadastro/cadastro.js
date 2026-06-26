@@ -1,4 +1,4 @@
-import api from '../utils/api.js'; // <-- Importação da configuração centralizada da API
+import api from '../utils/api.js';
 
 async function cadastrar() {
   const nome = document.getElementById('nome').value.trim();
@@ -12,55 +12,33 @@ async function cadastrar() {
     return;
   }
 
-  // =================================================================
-  // EXEMPLO DE INTEGRAÇÃO COM BACKEND USANDO AXIOS
-  // Descomente esse bloco quando a API estiver pronta!
-  // =================================================================
-  /*
   try {
-    const response = await api.post('/register', {
-      name: nome,
-      email: email,
-      password: senha
+    const response = await api.post('/webhook', {
+      object: 'frontend_payload',
+      entry: [
+        {
+          logging: {
+            name: nome,
+            email: email,
+            password: senha,
+          },
+        },
+      ],
     });
+
+    console.log(response.data);
 
     mensagem.textContent = 'Conta criada com sucesso! Redirecionando...';
 
     setTimeout(() => {
       window.location.href = '/src/login/login.html';
     }, 1000);
-
-    return; // Encerra a função para não executar o código local abaixo
   } catch (error) {
-    mensagem.textContent = error.response?.data?.message || 'Erro ao criar conta. Tente novamente.';
     console.error('Erro de cadastro:', error);
-    return;
+
+    mensagem.textContent =
+      error.response?.data?.error || 'Erro ao criar conta. Tente novamente.';
   }
-  */
-  // =================================================================
-
-  // -- Código atual baseado em Local Storage (Remover após ligar com API) --
-  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-
-  const emailExiste = usuarios.find(
-    (usuario) => usuario.email.toLowerCase() === email.toLowerCase(),
-  );
-
-  if (emailExiste) {
-    mensagem.textContent = 'Este e-mail já está cadastrado.';
-    return;
-  }
-
-  const usuario = { nome, email, senha };
-  usuarios.push(usuario);
-
-  localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-  mensagem.textContent = 'Conta criada com sucesso! Redirecionando...';
-
-  setTimeout(() => {
-    window.location.href = '/src/login/login.html';
-  }, 1000);
 }
 
 document.getElementById('criarConta').addEventListener('click', cadastrar);
