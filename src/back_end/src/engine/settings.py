@@ -25,6 +25,14 @@ class DatabaseSettings(BaseModel):
     url: str = "sqlite+aiosqlite:///./data.db"  # Default value
 
 
+class SecuritySettings(BaseModel):
+    """Settings for signing session tokens."""
+
+    # Dev-only default. Override in production via SECURITY__SECRET_KEY so the
+    # signing key is not a value that lives in the source tree.
+    secret_key: str = "dev-only-insecure-secret-change-me"
+
+
 class Settings(BaseSettings):
     """Settings python object, loaded once, used throughout the application."""
 
@@ -32,6 +40,7 @@ class Settings(BaseSettings):
         env_file=DOT_ENV_PATH, env_nested_delimiter="__", extra="ignore"
     )
     database: DatabaseSettings = DatabaseSettings()
+    security: SecuritySettings = SecuritySettings()
 
 
 app_settings = Settings()
