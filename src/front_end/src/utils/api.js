@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getSessionToken } from './auth.js';
 
 // Cria uma instância centralizada do axios para toda a aplicação
 const api = axios.create({
@@ -8,11 +9,11 @@ const api = axios.create({
 });
 
 // Interceptor de requisições:
-// Antes de qualquer chamada HTTP, ele verifica se existe um token no localStorage
+// Antes de qualquer chamada HTTP, ele verifica se existe token de sessão
 // Se existir, injeta automaticamente nos headers de Autenticação.
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getSessionToken();
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
