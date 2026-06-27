@@ -7,6 +7,9 @@ HU01: covers the three acceptance criteria at the data layer:
   3. Password stored hashed and verifiable via verify_password.
 """
 
+import hashlib
+from datetime import datetime
+
 import pytest
 
 from engine.database import (
@@ -47,11 +50,15 @@ async def test_create_user_password_is_hashed(
     engine = init_db_engine(mock_settings.database.url)
     try:
         await create_all_tables(engine, CentralDeclarativeBase.metadata)
-        plaintext = "my-plaintext-password"
+        # What the frontend sends: a SHA-256 digest of the real password.
+        digest = hashlib.sha256(b"my-plaintext-password").hexdigest()
         async with get_async_session(engine) as session:
-            user = await create_user(session, "bob@example.com", plaintext)
-        assert user.passwd != plaintext
-        assert verify_password(plaintext, user.passwd) is True
+            user = await create_user(session, "bob@example.com", digest)
+        # Stored value is the salted PBKDF2 hash, not the bare digest...
+        assert user.passwd != digest
+        assert user.passwd.startswith("pbkdf2_sha256$")
+        # ...and it verifies against the digest the frontend would resend.
+        assert verify_password(digest, user.passwd) is True
     finally:
         await drop_all_tables(engine, CentralDeclarativeBase.metadata)
         await engine.dispose()
@@ -101,6 +108,32 @@ async def test_get_user_returns_none_for_missing(
         async with get_async_session(engine) as session:
             found = await get_user(session, "nobody@example.com")
         assert found is None
+    finally:
+        await drop_all_tables(engine, CentralDeclarativeBase.metadata)
+        await engine.dispose()
+
+
+async def test_create_user_persists_optional_fields(
+    mock_settings: Settings,
+) -> None:
+    """Optional name and birthday are stored and read back unchanged."""
+    engine = init_db_engine(mock_settings.database.url)
+    try:
+        await create_all_tables(engine, CentralDeclarativeBase.metadata)
+        birthday = datetime(1990, 5, 17)
+        async with get_async_session(engine) as session:
+            await create_user(
+                session,
+                "eve@example.com",
+                "pass",
+                name="Eve",
+                birthday=birthday,
+            )
+        async with get_async_session(engine) as session:
+            found = await get_user(session, "eve@example.com")
+        assert found is not None
+        assert found.name == "Eve"
+        assert found.birthday == birthday
     finally:
         await drop_all_tables(engine, CentralDeclarativeBase.metadata)
         await engine.dispose()

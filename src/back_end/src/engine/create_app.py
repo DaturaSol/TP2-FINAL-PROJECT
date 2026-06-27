@@ -8,7 +8,6 @@ from engine.lifespan import lifespan
 from engine.routes import routers
 
 
-# TODO: test this
 def create_app(lifespan=lifespan) -> FastAPI:
     """Starts up the app and include its routes."""
     app = FastAPI(lifespan=lifespan)

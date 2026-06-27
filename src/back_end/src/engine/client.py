@@ -1,44 +1,58 @@
 # ./src/back_end/src/engine/client.py
-"""Holds methods to send messages to our frontend."""
+"""Outbound HTTP helper for talking to other services.
 
-from aiohttp import ClientError, ClientSession, ClientTimeout, ContentTypeError
+NOTE: In this project the backend answers the frontend *directly* on the
+``POST /webhook`` response (see ``routes/_handle_payload.py``), so it never
+needs to open a second connection back to the frontend. This helper is kept
+small and self-contained for any future "fire a payload at some URL" need
+(e.g. notifying an external service); it is intentionally not part of the
+registration flow.
+"""
+
+from aiohttp import ClientSession, ClientTimeout
 
 from engine.schemas.outgoing import BackEndRequest
 
 
 async def post_request(
-    session: ClientSession, payload: BackEndRequest, timeout: int = 10
-) -> dict | None:
-    """Sends a simple payload to the frontend.
+    session: ClientSession,
+    url: str,
+    payload: BackEndRequest,
+    timeout: int = 10,
+) -> dict[str, object]:
+    """Send a payload to ``url`` as JSON and return the parsed response.
 
-    Yes, gotta be asynchronously.
-    I was nice and did a bit of a scaffold for whoever wants to take this.
-    d=====(￣▽￣*)b
+    Args:
+        session: A live aiohttp session (the app keeps one on
+            ``app.state.client_session``; see ``engine/lifespan.py``).
+        url: Absolute URL to POST to.
+        payload: The response object to serialise and send.
+        timeout: Total request timeout in seconds.
+
+    Returns:
+        The response body parsed from JSON.
+
+    Raises:
+        aiohttp.ClientError: On connection/HTTP transport errors.
+        TimeoutError: If the request takes longer than ``timeout`` seconds.
     """
-    raise NotImplementedError
-    # TODO: Make this work, good luck (~￣▽￣)~.
-    url = ""  # Not sure yet
-    headers = {
-        "Content-Type": "application/json; charset=utf-8",
-    }  # Knowing the charset is kinda useful, not necessary, can be removed.
+    # Pre:  session is an open ClientSession and url is a valid absolute URL
+    # Post: returns the parsed JSON body, or propagates a transport error
 
+    # Tell the server we are sending UTF-8 JSON. The charset is optional but
+    # makes our intent explicit and avoids any ambiguity on the other side.
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+
+    # by_alias=True   -> emit "object" (not "object_"), matching the schema.
+    # exclude_none=True -> drop empty optional fields to keep the body small.
     json_data = payload.model_dump(exclude_none=True, by_alias=True)
 
-    try:
-        async with session.post(
-            url,
-            json=json_data,
-            headers=headers,
-            timeout=ClientTimeout(total=timeout),
-        ) as resp:
-            data: dict = await resp.json()
-
-            # Error
-            if resp.status >= 400 or "error" in data:
-                err: dict = data.get("error", {})
-                err_message = err.get("message", data)  # noqa: F841
-                return data
-
-            return data
-    except (ClientError, ContentTypeError, TimeoutError) as e:
-        raise e
+    # ``async with`` guarantees the connection is released even on error.
+    async with session.post(
+        url,
+        json=json_data,
+        headers=headers,
+        timeout=ClientTimeout(total=timeout),
+    ) as resp:
+        data: dict[str, object] = await resp.json()
+        return data
