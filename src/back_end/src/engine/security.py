@@ -4,6 +4,14 @@
 Uses PBKDF2-HMAC-SHA256 from the standard library — no external
 dependencies required.
 
+Two-layer scheme: the frontend already hashes the user's plaintext password
+with SHA-256 (so the plaintext never crosses the network), and the functions
+here add a salted, slow PBKDF2 layer on top before the value is stored. The
+client-side SHA-256 protects the plaintext in transit; the server-side salted
+PBKDF2 protects the database if it ever leaks. The ``password`` argument below
+is therefore the client-side SHA-256 digest, not the raw plaintext — but the
+functions treat it as an opaque string and would work the same on either.
+
 HU01: provides the cryptographic primitives for user registration.
 """
 

@@ -1,7 +1,11 @@
 # src/back_end/src/engine/schemas/sql/_user.py
-"""User database declaration."""
+"""User database declaration.
 
-# TODO: Integrate this with the route, add tests
+Wired into the request flow via ``database.create_user`` (called from the
+``handle_webhook`` service, which the ``POST /webhook`` route dispatches to).
+Exercised by the tests under tests/database/ and tests/routes/.
+"""
+
 import datetime
 
 from sqlalchemy import DateTime, String
