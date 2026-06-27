@@ -9,7 +9,12 @@ import re
 from pydantic import BaseModel, field_validator
 
 _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-_MIN_PASSWORD_LEN = 8
+
+# The frontend hashes the user's plaintext password with SHA-256 before
+# sending it, so what we receive in the ``password`` field is always a
+# 64-character hexadecimal digest (lowercase). We validate that *shape*.
+_SHA256_HEX_LEN = 64
+_SHA256_HEX_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 class LoggingEntry(BaseModel):
@@ -43,21 +48,33 @@ class LoggingEntry(BaseModel):
     @field_validator("password", mode="before")
     @classmethod
     def validate_password(cls, v: str) -> str:
-        """Enforce a minimum password length.
+        """Validate that the password is a SHA-256 hex digest.
+
+        The frontend hashes the plaintext password with SHA-256 and sends
+        only the resulting hex digest, so the plaintext never travels over
+        the wire. We therefore validate the *shape* of that digest here.
+
+        Password-strength rules (minimum length, complexity, ...) can no
+        longer be checked by the backend, since it never sees the plaintext;
+        those must be enforced on the frontend, before hashing.
 
         Args:
-            v: Raw password string from the payload.
+            v: Raw password field from the payload (expected: a SHA-256
+                hex digest produced by the frontend).
 
         Returns:
-            The password unchanged if valid.
+            The digest, stripped and lowercased.
 
         Raises:
-            ValueError: If the password is shorter than the minimum length.
+            ValueError: If the value is not a valid SHA-256 hex digest.
         """
         # Pre:  v is the raw password field from the incoming payload
-        # Post: returns v unchanged or raises ValueError
-        if len(v) < _MIN_PASSWORD_LEN:
+        # Post: returns the normalised (lowercase) digest, or raises
+        #       ValueError when v is not 64 hexadecimal characters
+        normalised = v.strip().lower()
+        if not _SHA256_HEX_RE.match(normalised):
             raise ValueError(
-                f"Password must be at least {_MIN_PASSWORD_LEN} characters."
+                "Password must be a SHA-256 hex digest "
+                f"({_SHA256_HEX_LEN} hexadecimal characters)."
             )
-        return v
+        return normalised

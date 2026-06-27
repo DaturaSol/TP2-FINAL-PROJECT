@@ -4,6 +4,8 @@
 HU01: happy path and duplicate e-mail scenarios at the service layer.
 """
 
+import hashlib
+
 import pytest
 
 from engine.database import create_all_tables, init_db_engine
@@ -13,6 +15,9 @@ from engine.schemas.ingoing import WebHookPayload
 from engine.schemas.sql import CentralDeclarativeBase
 from engine.services import handle_webhook
 from engine.settings import Settings
+
+# The frontend sends the password already SHA-256-hashed.
+_DIGEST = hashlib.sha256(b"service-layer-password").hexdigest()
 
 
 def _make_payload(
@@ -37,7 +42,7 @@ async def test_handle_webhook_success(mock_settings: Settings) -> None:
     engine = init_db_engine(mock_settings.database.url)
     try:
         await create_all_tables(engine, CentralDeclarativeBase.metadata)
-        payload = _make_payload("hw@example.com", "securepass1", "HW User")
+        payload = _make_payload("hw@example.com", _DIGEST, "HW User")
         result = await handle_webhook(payload, engine)
         assert len(result.entry) == 1
         info = result.entry[0].user_basic_info
@@ -57,7 +62,7 @@ async def test_handle_webhook_duplicate_raises(
     engine = init_db_engine(mock_settings.database.url)
     try:
         await create_all_tables(engine, CentralDeclarativeBase.metadata)
-        payload = _make_payload("dup@example.com", "securepass1")
+        payload = _make_payload("dup@example.com", _DIGEST)
         await handle_webhook(payload, engine)
         with pytest.raises(EmailAlreadyExistsError):
             await handle_webhook(payload, engine)

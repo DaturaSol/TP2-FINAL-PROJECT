@@ -5,6 +5,7 @@ HU01: 201 on success, 409 on duplicate e-mail, 422 on validation failure,
 400 on unrecognisable payload shape.
 """
 
+import hashlib
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -17,6 +18,10 @@ from engine.database import create_all_tables, init_db_engine
 from engine.database._crud import drop_all_tables
 from engine.schemas.sql import CentralDeclarativeBase
 from engine.settings import Settings
+
+# The frontend sends the password already SHA-256-hashed, so the payloads
+# below carry a hex digest rather than a plaintext password.
+_DIGEST = hashlib.sha256(b"a-strong-password").hexdigest()
 
 
 @asynccontextmanager
@@ -58,7 +63,7 @@ async def test_register_success_returns_201(client: AsyncClient) -> None:
     """HU01 criterion 1: valid data returns 201 with user info."""
     resp = await client.post(
         "/webhook",
-        json=_payload("alice@example.com", "password123", "Alice"),
+        json=_payload("alice@example.com", _DIGEST, "Alice"),
     )
     assert resp.status_code == 201
     data = resp.json()
@@ -72,7 +77,7 @@ async def test_register_success_returns_201(client: AsyncClient) -> None:
 
 async def test_register_duplicate_returns_409(client: AsyncClient) -> None:
     """HU01 criterion 2: duplicate e-mail returns 409."""
-    body = _payload("bob@example.com", "password123")
+    body = _payload("bob@example.com", _DIGEST)
     await client.post("/webhook", json=body)
     resp = await client.post("/webhook", json=body)
     assert resp.status_code == 409
@@ -82,19 +87,17 @@ async def test_register_invalid_email_returns_422(
     client: AsyncClient,
 ) -> None:
     """HU01 criterion 3: invalid e-mail format returns 422."""
-    resp = await client.post(
-        "/webhook", json=_payload("not-an-email", "password123")
-    )
+    resp = await client.post("/webhook", json=_payload("not-an-email", _DIGEST))
     assert resp.status_code == 422
     assert "detail" in resp.json()
 
 
-async def test_register_short_password_returns_422(
+async def test_register_non_hash_password_returns_422(
     client: AsyncClient,
 ) -> None:
-    """HU01 criterion 3: password shorter than 8 chars returns 422."""
+    """HU01 criterion 3: a password that is not a SHA-256 digest returns 422."""
     resp = await client.post(
-        "/webhook", json=_payload("carol@example.com", "short")
+        "/webhook", json=_payload("carol@example.com", "plaintext-password")
     )
     assert resp.status_code == 422
     assert "detail" in resp.json()
