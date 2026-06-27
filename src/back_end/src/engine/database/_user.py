@@ -28,7 +28,10 @@ async def create_user(
     Args:
         session: Active database session.
         email: User's e-mail address (must be unique in the database).
-        passwd: Plaintext password; stored as a PBKDF2-SHA256 hash.
+        passwd: The client-side SHA-256 digest of the user's password (the
+            frontend hashes before sending; see schemas/ingoing). It is run
+            through a salted PBKDF2-SHA256 before storage, so what lands in
+            the database is never the bare digest, let alone the plaintext.
         name: Optional display name.
         birthday: Optional date of birth.
 
@@ -39,7 +42,8 @@ async def create_user(
         EmailAlreadyExistsError: If the e-mail is already registered.
     """
     # Pre:  session is an active AsyncSession; email and passwd are non-empty
-    # Post: User is persisted with passwd hashed (never stored in plaintext);
+    # Post: User is persisted with passwd run through PBKDF2 before storage
+    #       (never stored as plaintext nor as the bare SHA-256 digest);
     #       raises EmailAlreadyExistsError on duplicate email and leaves the
     #       session in a clean state after rollback
     new_user = User(

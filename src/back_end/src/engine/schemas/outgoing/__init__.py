@@ -23,4 +23,15 @@ class BackEndRequest(BaseModel):
     entry: list[Entry]
 
 
-__all__ = ["BackEndRequest", "Entry", "UserBasicEntry"]
+class LoginResponse(BaseModel):
+    """Body returned on a successful login.
+
+    Field names match what the frontend reads from the response: a session
+    ``token`` and the user's basic info under ``usuario``.
+    """
+
+    token: str
+    usuario: UserBasicEntry
+
+
+__all__ = ["BackEndRequest", "Entry", "LoginResponse", "UserBasicEntry"]

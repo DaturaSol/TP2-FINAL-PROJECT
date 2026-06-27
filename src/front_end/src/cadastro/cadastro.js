@@ -1,18 +1,82 @@
 import api from '../utils/api.js';
+import {
+  validateEmail,
+  validatePassword,
+  hashPassword,
+} from '../utils/validators.js';
 
+export function showFieldError(fieldId, message) {
+  const errorElement = document.getElementById(fieldId);
+  if (errorElement) {
+    errorElement.textContent = message;
+    errorElement.style.display = message ? 'block' : 'none';
+  }
+}
+
+/**
+ * Exibe mensagem de erro no campo específico
+ *
+ * @param {string} fieldId - ID do elemento para erro
+ * @param {string} message - Mensagem a exibir
+ */
+
+/**
+ * Limpa mensagens de erro de todos os campos
+ */
+function clearFieldErrors() {
+  const errorElements = document.querySelectorAll('.mensagem-erro');
+  errorElements.forEach((el) => {
+    el.textContent = '';
+    el.style.display = 'none';
+  });
+}
+
+/**
+ * Função de cadastro com validações
+ * 1. Valida email e senha
+ * 2. Valida nome não vazio
+ * 3. Faz requisição ao servidor
+ */
 async function cadastrar() {
   const nome = document.getElementById('nome').value.trim();
   const email = document.getElementById('email').value.trim();
   const senha = document.getElementById('senha').value.trim();
-
   const mensagem = document.getElementById('mensagem');
 
-  if (!nome || !email || !senha) {
-    mensagem.textContent = 'Preencha todos os campos.';
+  // Limpa erros anteriores
+  clearFieldErrors();
+  mensagem.textContent = '';
+
+  // Valida nome
+  let hasError = false;
+
+  if (!nome) {
+    showFieldError('erro-nome', 'Nome é obrigatório.');
+    hasError = true;
+  }
+
+  // Valida email
+  const emailValidation = validateEmail(email);
+  if (!emailValidation.isValid) {
+    showFieldError('erro-email', emailValidation.message);
+    hasError = true;
+  }
+
+  // Valida senha
+  const senhaValidation = validatePassword(senha);
+  if (!senhaValidation.isValid) {
+    showFieldError('erro-senha', senhaValidation.message);
+    hasError = true;
+  }
+
+  if (hasError) {
     return;
   }
 
   try {
+    // Gera hash SHA-256 da senha
+    const senhaHash = await hashPassword(senha);
+
     const response = await api.post('/webhook', {
       object: 'frontend_payload',
       entry: [
@@ -20,13 +84,11 @@ async function cadastrar() {
           logging: {
             name: nome,
             email: email,
-            password: senha,
+            password: senhaHash, // Envia a senha com hash SHA-256
           },
         },
       ],
     });
-
-    console.log(response.data);
 
     mensagem.textContent = 'Conta criada com sucesso! Redirecionando...';
 
