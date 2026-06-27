@@ -28,6 +28,14 @@ def test_webhook_route_is_registered() -> None:
     assert "post" in paths["/webhook"]
 
 
+def test_login_route_is_registered() -> None:
+    """The POST /login route is included on the app."""
+    app = create_app()
+    paths = app.openapi()["paths"]
+    assert "/login" in paths
+    assert "post" in paths["/login"]
+
+
 def test_cors_middleware_is_configured() -> None:
     """CORS middleware is installed so the Vite frontend can call the API."""
     app = create_app()

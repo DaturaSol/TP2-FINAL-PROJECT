@@ -6,6 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from ._logging import LoggingEntry
+from ._login import LoginRequest
 
 
 class Entry(BaseModel):
@@ -26,4 +27,4 @@ class WebHookPayload(BaseModel):
 
 
 # NOTE: In python the closest thing we have to code protection is this.
-__all__ = ["WebHookPayload"]
+__all__ = ["LoginRequest", "WebHookPayload"]
