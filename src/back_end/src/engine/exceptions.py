@@ -3,6 +3,7 @@
 
 HU01: EmailAlreadyExistsError and NoActionableEntryError are raised
 during user registration.
+HU02: InvalidCredentialsError is raised during login.
 """
 
 
@@ -12,3 +13,11 @@ class EmailAlreadyExistsError(Exception):
 
 class NoActionableEntryError(Exception):
     """Raised when a webhook payload carries no recognisable entry type."""
+
+
+class InvalidCredentialsError(Exception):
+    """Raised on login when the e-mail is unknown or the password is wrong.
+
+    The same error covers both cases on purpose, so callers cannot use it to
+    discover which e-mail addresses are registered.
+    """
