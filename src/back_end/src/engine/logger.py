@@ -1,7 +1,7 @@
 # /workspace/src/back_end/src/engine/logger.py
-"""Sistema de Loggers.
+"""Sistema de Logging.
 
-Criado para facilitar o armazenamento, rastreamento, e detecção de falhas e
+Criado para facilitar o registro e monitoramento dos
 eventos ocorridos no back-end.
 """
 
@@ -12,8 +12,8 @@ import sys
 def setup_logging(level: str = "INFO", log_file: str | None = "app.log"):
     """Configurações gerais do logger.
 
-    As configuração definidas a baixo, serão herdadas por todos os môdulos que
-    chamarem a função 'logging.getLogger(__name__)'
+    As configuração definidas abaixo serão herdadas por todos os môdulos que
+    chamarem a função 'logging.getLogger(__name__)'.
 
     """
     # 1.Criação do logger raiz

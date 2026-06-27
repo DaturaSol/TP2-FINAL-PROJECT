@@ -86,8 +86,9 @@ def verify_password(password: str, hashed: str) -> bool:
         iterations = int(iterations_str)
         padding = "=" * (-len(salt_b64) % 4)
         salt = base64.urlsafe_b64decode(salt_b64 + padding)
-        logger.error(f"ValueError when decoding hash: {hashed}")
+
     except ValueError:
+        logger.error(f"ValueError when decoding hash: {hashed}")
         return False
 
     dk = hashlib.pbkdf2_hmac(_ALGORITHM, password.encode(), salt, iterations)
