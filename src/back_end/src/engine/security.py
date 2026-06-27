@@ -20,10 +20,13 @@ import base64
 import hashlib
 import hmac
 import json
+import logging
 import secrets
 import time
 
 from engine.settings import app_settings
+
+logger = logging.getLogger(__name__)
 
 _ALGORITHM = "sha256"
 _ITERATIONS = 600_000  # OWASP 2023 minimum for PBKDF2-HMAC-SHA256
@@ -75,11 +78,15 @@ def verify_password(password: str, hashed: str) -> bool:
     try:
         parts = hashed.split(_SEP)
         if len(parts) != 4:  # algo, iters, salt, hash
+            logger.warning(
+                f"Malformed password hash verification attempt: {hashed} "
+            )
             return False
         _, iterations_str, salt_b64, stored_b64 = parts
         iterations = int(iterations_str)
         padding = "=" * (-len(salt_b64) % 4)
         salt = base64.urlsafe_b64decode(salt_b64 + padding)
+        logger.error(f"ValueError when decoding hash: {hashed}")
     except ValueError:
         return False
 

@@ -8,6 +8,7 @@ from aiohttp import ClientSession
 from fastapi import FastAPI
 
 from engine.database import create_all_tables, init_db_engine
+from engine.logger import setup_logging
 from engine.schemas.sql import CentralDeclarativeBase
 from engine.settings import app_settings
 
@@ -19,6 +20,9 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
     client_session = None
     # --- Startup ---
     try:
+        # 0. Logging
+        setup_logging()
+
         # 1. Database
         engine = init_db_engine(app_settings.database.url)
         app.state.db_engine = engine
