@@ -344,6 +344,21 @@ button {
   text-decoration: none;
 }
 
+.mensagem-erro {
+  display: none;
+  margin: -8px 0 12px;
+  color: #dc2626;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+#mensagem,
+#mensagem-login {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: var(--cor-texto-principal);
+}
+
 /* 8. dashboard (dps q o usuario loga)                    */
 #dashboard {
   padding: 60px 8%;
