@@ -4,26 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro - SmartMarket</title>
+
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Adiciona o tema escuro se estiver salvo no localStorage -->
+    <script>
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+
+    <!-- icone do site -->
     <link
       rel="icon"
       type="image/png"
       href="/src/assets/icons-supermercado-.png"
     />
+
+    <!-- importação dos estilos -->
     <link rel="stylesheet" href="/src/styles/style.css" />
-      <link rel="stylesheet" href="/src/cadastro/cadastro.css" />
+    <link rel="stylesheet" href="/src/cadastro/cadastro.css" />
   </head>
 
   <body>
+    <!-- Navbar -->
     <nav class="navbar">
-      <div class="logo"><a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a></div>
+      <div class="logo">
+        <a href="/" class="logo-link">SmartMarket</a>
+      </div>
+
       <div class="menu">
         <a href="/">Início</a>
         <a href="/">Categorias</a>
-        <a href="/src/login/login.html" class="btn-outline" style="text-decoration: none; padding: 10px 20px; border-radius: 5px;">Entrar</a>
-        <a href="/src/cadastro/cadastro.html" style="text-decoration: none; background-color: var(--primary-color, #ff6b6b); color: white; padding: 10px 20px; border-radius: 5px;">Criar Conta</a>
+        <a href="/src/login/login.html" class="btn btn-outline">Entrar</a>
+        <a href="/src/cadastro/cadastro.html" class="btn btn-primary"
+          >Criar Conta</a
+        >
       </div>
     </nav>
 
+    <!-- tela de cadastro -->
     <section id="cadastro">
       <div class="cadastro-container">
         <div class="cadastro-banner">
@@ -34,17 +55,38 @@
         <div class="cadastro-form">
           <h2>Criar Conta</h2>
 
-          <input type="text" id="nome" placeholder="Nome completo" />
-          <p id="erro-nome" class="mensagem-erro"></p>
+          <!-- Formulário de cadastro -->
+          <input
+            type="text"
+            id="nome"
+            placeholder="Nome completo"
+            aria-label="Digite seu nome completo"
+            autocomplete="name"
+          />
+          <p id="erro-nome" class="mensagem-erro" role="alert"></p>
 
-          <input type="email" id="email" placeholder="E-mail" />
-          <p id="erro-email" class="mensagem-erro"></p>
+          <input
+            type="email"
+            id="email"
+            placeholder="E-mail"
+            aria-label="Digite seu e-mail"
+            autocomplete="email"
+          />
+          <p id="erro-email" class="mensagem-erro" role="alert"></p>
 
-          <input type="password" id="senha" placeholder="Senha" />
-          <p id="erro-senha" class="mensagem-erro"></p>
+          <input
+            type="password"
+            id="senha"
+            placeholder="Senha"
+            aria-label="Crie uma senha"
+            autocomplete="new-password"
+          />
+          <p id="erro-senha" class="mensagem-erro" role="alert"></p>
+
+          <!-- Botão de cadastro  e  msg de retorno -->
 
           <button id="criarConta">Criar Conta</button>
-          <p id="mensagem"></p>
+          <p id="mensagem" role="alert"></p>
 
           <p class="switch-link">
             Já tem conta?

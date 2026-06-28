@@ -1,0 +1,88 @@
+/* login.CSS */
+
+/* container principal */
+.cadastro-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* banner  e form */
+.cadastro-banner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+
+  background: linear-gradient(135deg, var(--primary-color), var(--trust-color));
+  color: white;
+}
+
+.cadastro-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+
+  background: var(--card-bg);
+}
+
+.cadastro-form h2 {
+  margin-bottom: 25px;
+  color: var(--primary-color);
+}
+
+/* inputs do form */
+.cadastro-form input {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 2px solid #dbe3ea;
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.cadastro-form input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* link auxiliares*/
+.switch-link {
+  margin-top: 20px;
+}
+
+.switch-link a {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--trust-color);
+}
+
+/* Mensagens de erro individais de cada input */
+.mensagem-erro {
+  display: none;
+  margin: -8px 0 12px;
+  color: var(--danger-color);
+}
+
+#mensagem-login {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Mensagem de cadastro /*
+/* Mensagens geral de sucesso ou erro */
+.sucesso {
+  color: var(--primary-color);
+}
+
+.erro {
+  color: var(--danger-color);
+}
+
+/* Mensagens informativas (Ex: "Verifique seu e-mail") */
+.mensagem-info {
+  color: var(--trust-color);
+}

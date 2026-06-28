@@ -1,0 +1,105 @@
+/* src/styles/variables.css */
+
+:root {
+  /* cores bases (fundo/texto) */
+  --bg-color: #f7fcfa; /* Fundo principal levemente esverdeado */
+  --card-bg: rgba(255, 255, 255, 0.95); /* Fundo dos cartões */
+  --text-color: #1f2937; /* Cinza escuro para textos */
+  --text-muted: #6b7280; /* Cinza claro para textos secundários */
+
+  /* bordas e sombras */
+  --border-color: #dbeafe;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+  /* paleta smartarket */
+  --primary-color: #16a34a;
+  --primary-hover: #15803d;
+
+  --action-color: #f97316;
+  --action-hover: #ea580c;
+
+  --trust-color: #0ea5e9;
+
+  --danger-color: #ef4444;
+
+  /* gradientes */
+
+  /* Fundo principal */
+  --home-background: linear-gradient(
+    -45deg,
+    #f8fffb,
+    #eefbf4,
+    #eef9ff,
+    #f4fcff,
+    #f8fffb
+  );
+
+  /* Banner Login/Cadastro */
+  --hero-gradient: linear-gradient(135deg, #16a34a, #0ea5e9);
+
+  /* Navbar */
+  --navbar-bg: rgba(255, 255, 255, 0.92);
+
+  /* Cards */
+  --card-hover: #f0fdf4;
+
+  /* Tag */
+  --tag-bg: rgba(22, 163, 74, 0.12);
+
+  /* Input */
+  --input-bg: #ffffff;
+
+  /* Transição padrão */
+  --transition: 0.3s ease;
+}
+
+/* Modo Escuro - Dark */
+
+[data-theme='dark'] {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-color: #f1f5f9;
+  --text-muted: #94a3b8;
+
+  /* Borda e sombras */
+  --border-color: #334155;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+
+  /* Cores principais */
+  --primary-color: #16a34a;
+  --primary-hover: #15803d;
+
+  --action-color: #fb923c;
+  --action-hover: #f97316;
+
+  --trust-color: #60a5fa;
+
+  --danger-color: #ef4444;
+
+  /* Fundo principal */
+  --home-background: linear-gradient(
+    -45deg,
+    #081c15,
+    #0f172a,
+    #0b3b60,
+    #081c15
+  );
+
+  /* Banner Login/Cadastro */
+  --hero-gradient: linear-gradient(135deg, #065f46, #1e3a8a);
+
+  /* Navbar */
+  --navbar-bg: rgba(15, 23, 42, 0.92);
+
+  /* Cards */
+  --card-hover: #273449;
+
+  /* Tag */
+  --tag-bg: rgba(22, 163, 74, 0.2);
+
+  /* Input */
+  --input-bg: #273449;
+
+  /* Transição padrão */
+  --transition: 0.3s ease;
+}

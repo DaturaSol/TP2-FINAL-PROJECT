@@ -1,6 +1,23 @@
+/**
+ * login.js
+ * Responsavel pela autenticação de usuarios
+ *
+ * Funcionalidades:
+ * 1. Validação de campos (email, senha)
+ * 2. Exibição de mensagens de erro e sucesso
+ * 3. Envio de dados para o servidor via API
+ * 4. Geração de hash SHA-256 da senha
+ * 5. Armazenamento do token JWT e dados do usuário no localStorage
+ * 6. Redirecionamento para tela de dashboard
+ */
+
 import api from '../utils/api.js'; // <-- Importação da configuração centralizada da API
 import { setLoggedInUser, setSessionToken } from '../utils/auth.js';
 import { validateLoginForm, hashPassword } from '../utils/validators.js';
+import { loadTheme, toggleTheme } from '../utils/theme.js';
+
+// Carrega tema (claro/escuro) salvo do localStorage ou padrão
+loadTheme();
 
 /**
  * Exibe mensagem de erro no campo específico
@@ -76,6 +93,7 @@ async function login() {
     // Armazena os dados básicos para a UI do front-end
     setLoggedInUser(usuario);
 
+    mensagem.className = 'sucesso';
     mensagem.textContent = 'Login realizado com sucesso! Redirecionando...';
     setTimeout(() => {
       window.location.href = '/src/dashboard/dashboard.html';
@@ -83,6 +101,7 @@ async function login() {
 
     return; // Encerra a função para não executar o código local abaixo
   } catch (error) {
+    mensagem.className = 'erro';
     mensagem.textContent =
       error.response?.data?.message || 'E-mail ou senha inválidos.';
     console.error('Erro de login:', error);
@@ -97,6 +116,7 @@ async function login() {
   const usuario = usuarios.find((u) => u.email === email && u.senha === senha);
 
   if (!usuario) {
+    mensagem.className = 'erro';
     mensagem.textContent = 'Usuário não encontrado ou dados incorretos.';
     return;
   }
@@ -106,6 +126,7 @@ async function login() {
   setSessionToken(fakeToken);
   setLoggedInUser(usuario);
 
+  mensagem.className = 'sucesso';
   mensagem.textContent = 'Login realizado com sucesso! Redirecionando...';
   setTimeout(() => {
     window.location.href = '/src/dashboard/dashboard.html';

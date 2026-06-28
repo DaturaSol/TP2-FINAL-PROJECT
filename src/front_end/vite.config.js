@@ -8,6 +8,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   publicDir: 'public',
   root: './',
+  server: {
+    watch: {
+      usePolling: true,
+    },
+  },
   build: {
     outDir: 'dist',
     rolldownOptions: {
