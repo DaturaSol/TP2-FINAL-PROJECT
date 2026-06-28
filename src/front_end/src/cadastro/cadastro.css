@@ -1,0 +1,111 @@
+/* Cadastro.CSS */
+
+/* container Principal */
+.cadastro-container {
+  min-height: 100vh;
+
+  display: flex;
+}
+
+/* banner  e form */
+.cadastro-banner {
+  flex: 1;
+
+  background: linear-gradient(135deg, var(--primary-color), var(--trust-color));
+
+  color: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 60px;
+}
+
+.cadastro-form {
+  flex: 1;
+
+  background: var(--card-bg);
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 60px;
+}
+
+.cadastro-form h2 {
+  color: var(--primary-color);
+
+  margin-bottom: 25px;
+}
+
+/* inputs do form */
+.cadastro-form input {
+  padding: 15px;
+
+  border: 2px solid #dbe3ea;
+
+  border-radius: 12px;
+
+  margin-bottom: 15px;
+
+  background: var(--card-bg);
+
+  color: var(--text-color);
+}
+
+.cadastro-form input:focus {
+  border-color: var(--primary-color);
+
+  outline: none;
+}
+
+/* link auxiliares*/
+.switch-link {
+  margin-top: 20px;
+}
+
+.switch-link a {
+  color: var(--trust-color);
+
+  font-weight: bold;
+
+  text-decoration: none;
+}
+
+/* Mensagens de erro individais de cada input */
+.mensagem-erro {
+  color: var(--danger-color);
+
+  font-size: 0.9rem;
+
+  display: none;
+
+  margin: -8px 0 12px;
+}
+
+/* Mensagem de cadastro /*
+/* Mensagens geral de sucesso ou erro */
+
+#mensagem {
+  margin-top: 12px;
+
+  text-align: center;
+
+  font-weight: 600;
+
+  transition: color 0.3s ease;
+}
+
+.sucesso {
+  color: var(--primary-color);
+}
+
+.erro {
+  color: var(--danger-color);
+}

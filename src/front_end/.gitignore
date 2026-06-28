@@ -4,3 +4,4 @@ dist/
 .vite/
 *.log
 .pnpm-store/
+.env

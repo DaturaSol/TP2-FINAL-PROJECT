@@ -4,56 +4,97 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SmartMarket</title>
+
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Script para carregar o tema salvo -->
+    <script>
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    </script>
+
+    <!-- Ícone do site -->
     <link
       rel="icon"
       type="image/png"
-      href="src/assets/icons-supermercado-.png"
+      href="/src/assets/icons-supermercado-.png"
     />
-    <link rel="stylesheet" href="src/styles/style.css" />
+
+    <!-- Importação dos estilos -->
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link rel="stylesheet" href="/src/home/home.css" />
   </head>
 
   <body>
+    <!-- Navbar -->
     <nav class="navbar">
       <div class="logo">
-        <a href="/" style="text-decoration: none; color: inherit;">SmartMarket</a>
+        <a href="/" class="logo-link">SmartMarket</a>
       </div>
 
       <div class="menu">
         <a href="/">Início</a>
         <a href="#">Categorias</a>
 
-        <!-- botões para trocar telas -->
-        <a href="/src/login/login.html" id="abrirLogin" class="btn-outline" style="text-decoration: none; padding: 10px 20px; border-radius: 5px;">Entrar</a>
-        <a href="/src/cadastro/cadastro.html" id="abrirCadastro" style="text-decoration: none; background-color: var(--primary-color, #ff6b6b); color: white; padding: 10px 20px; border-radius: 5px;">Criar Conta</a>
+        <a href="/src/login/login.html" id="abrirLogin" class="btn btn-outline"
+          >Entrar</a
+        >
+        <a
+          href="/src/cadastro/cadastro.html"
+          id="abrirCadastro"
+          class="btn btn-primary"
+          >Criar Conta</a
+        >
+
+        <button
+          id="theme-toggle"
+          class="theme-toggle"
+          aria-label="Alternar tema claro/escuro"
+        >
+          🌙
+        </button>
       </div>
     </nav>
 
-    <section id="home">
-      <div class="hero">
+    <!-- Conteúdo principal da página -->
+    <main id="home">
+      <section class="hero">
         <div class="hero-left">
-          <span class="tag"> Compare preços em segundos </span>
+          <span class="tag">Compare preços em segundos</span>
           <h1>Compare preços e economize em cada compra</h1>
           <p>
             Organize suas listas de compras, encontre os melhores preços e
             economize nos mercados da sua região.
           </p>
 
+          <!-- Campo de busca -->
           <div class="search-home">
             <input
               type="text"
               placeholder="Buscar produtos, marcas e muito mais..."
+              aria-label="Campo de busca de produtos e marcas"
             />
-            <button>Buscar</button>
+            <button type="button">Buscar</button>
           </div>
 
-          <button id="heroCadastro">Criar Conta Gratuitamente</button>
+          <!-- Botão principal -->
+          <button id="heroCadastro" class="btn-primary">
+            Criar Conta Gratuitamente
+          </button>
         </div>
 
+        <!-- Imagem do lado direito -->
         <div class="hero-right">
-          <img src="src/assets/images/mercado.jpg" alt="Supermercado" />
+          <img
+            src="/src/assets/images/mercado.jpg"
+            alt="Fachada de um supermercado moderno"
+          />
         </div>
-      </div>
+      </section>
 
+      <!-- Categorias -->
       <section class="categorias">
         <h2>Categorias Populares</h2>
 
@@ -61,24 +102,19 @@
           <div class="categoria">
             <span>🥛 Laticínios</span>
           </div>
-
           <div class="categoria">
             <span>🥩 Carnes</span>
           </div>
-
           <div class="categoria">
             <span>🥬 Hortifruti</span>
           </div>
-
           <div class="categoria">
             <span>🧃 Bebidas</span>
           </div>
         </div>
       </section>
-    </section>
+    </main>
 
-    <!-- connect js ao html -->
-    <link rel="stylesheet" href="/src/home/home.css" />
     <script type="module" src="/src/home/home.js"></script>
   </body>
 </html>

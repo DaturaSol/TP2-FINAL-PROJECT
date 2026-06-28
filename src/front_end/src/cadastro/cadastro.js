@@ -1,9 +1,25 @@
+/*
+ * Arquivo: cadastro.js
+ * Responsável pelo cadastro de novos usuários
+ *
+ *Funcionalidades:
+ * Validação de campos (nome, email, senha)
+ * Exibição de mensagens de erro e sucesso
+ * Envio de dados para o servidor via API
+ * Geração de hash SHA-256 da senha
+ * Redirecionamento para tela de login
+ */
+
 import api from '../utils/api.js';
 import {
   validateEmail,
   validatePassword,
   hashPassword,
 } from '../utils/validators.js';
+import { loadTheme, toggleTheme } from '../utils/theme.js';
+
+// Carrega tema (claro/escuro) salvo do localStorage ou padrão
+loadTheme();
 
 export function showFieldError(fieldId, message) {
   const errorElement = document.getElementById(fieldId);
@@ -46,12 +62,13 @@ async function cadastrar() {
   // Limpa erros anteriores
   clearFieldErrors();
   mensagem.textContent = '';
+  mensagem.className = '';
 
   // Valida nome
   let hasError = false;
 
   if (!nome) {
-    showFieldError('erro-nome', 'Nome é obrigatório.');
+    showFieldError('erro-nome', 'Por favor, preencha o seu Nome completo.');
     hasError = true;
   }
 
@@ -90,6 +107,7 @@ async function cadastrar() {
       ],
     });
 
+    mensagem.className = 'sucesso';
     mensagem.textContent = 'Conta criada com sucesso! Redirecionando...';
 
     setTimeout(() => {
@@ -98,6 +116,7 @@ async function cadastrar() {
   } catch (error) {
     console.error('Erro de cadastro:', error);
 
+    mensagem.className = 'erro';
     mensagem.textContent =
       error.response?.data?.error || 'Erro ao criar conta. Tente novamente.';
   }

@@ -1,0 +1,56 @@
+/* reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+
+  /* Informa ao navegador que o tema atual é claro */
+  color-scheme: light;
+}
+
+/* Quando o tema for escuro */
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+img {
+  display: block;
+
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+}
+
+input {
+  font: inherit;
+
+  background: var(--card-bg);
+  color: var(--text-color);
+
+  border: 1px solid var(--border-color);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+.hidden {
+  display: none !important;
+}

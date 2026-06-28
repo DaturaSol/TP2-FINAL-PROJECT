@@ -13,10 +13,10 @@
  */
 export function validateEmail(email) {
   // Entrada: deve ser string não vazia
-  if (!email || typeof email !== 'string') {
+  if (!email || typeof email !== 'string' || email.trim() === '') {
     return {
       isValid: false,
-      message: 'Email é obrigatório e deve ser texto.',
+      message: 'Por favor, preencha o seu Email.',
     };
   }
 
@@ -30,12 +30,12 @@ export function validateEmail(email) {
   if (emailRegex.test(emailTrimmed)) {
     return {
       isValid: true,
-      message: 'Email válido.',
+      message: '',
     };
   } else {
     return {
       isValid: false,
-      message: 'Email inválido. Use o formato: usuario@dominio.com',
+      message: 'Ops! Digite um Email válido (ex: seu.nome@email.com).',
     };
   }
 }
@@ -54,7 +54,7 @@ export function validatePassword(senha) {
   if (!senha || typeof senha !== 'string') {
     return {
       isValid: false,
-      message: 'Senha é obrigatória e deve ser texto.',
+      message: 'Por favor, preencha a sua Senha.',
       requirements: {
         minLength: false,
         hasNumber: false,
@@ -95,10 +95,28 @@ export function validatePassword(senha) {
 
     return {
       isValid: false,
-      message: `Senha fraca. Requisitos: ${mensagens.join(', ')}.`,
+      message: `Senha fraca. A senha deve conter ${mensagens.join(', ')}.`,
       requirements,
     };
   }
+}
+
+/**
+ * Valida a senha para LOGIN
+ * Apenas verifica se o campo foi preenchido.
+ */
+export function validateLoginPassword(senha) {
+  if (!senha || typeof senha !== 'string' || senha.trim() === '') {
+    return {
+      isValid: false,
+      message: 'Por favor, preencha a sua senha.',
+    };
+  }
+
+  return {
+    isValid: true,
+    message: '',
+  };
 }
 
 /**
@@ -113,7 +131,7 @@ export function validatePassword(senha) {
 export function validateLoginForm(email, senha) {
   // Entrada: ambos devem ser strings
   const emailValidation = validateEmail(email);
-  const senhaValidation = validatePassword(senha);
+  const senhaValidation = validateLoginPassword(senha);
 
   // Saída: objeto com status geral e detalhes dos erros
   return {
@@ -144,7 +162,7 @@ export function validateLoginForm(email, senha) {
  */
 export async function hashPassword(senha) {
   // Validar entrada
-  if (!senha || typeof senha !== 'string') {
+  if (!senha || typeof senha !== 'string' || senha.trim() === '') {
     throw new Error('Senha deve ser uma string não vazia.');
   }
 
