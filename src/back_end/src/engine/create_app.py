@@ -6,7 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from engine.lifespan import lifespan
 from engine.routes import routers
+import logging
 
+
+logger = logging.getLogger(__name__)
 
 def create_app(lifespan=lifespan) -> FastAPI:
     """Starts up the app and include its routes."""
@@ -24,5 +27,5 @@ def create_app(lifespan=lifespan) -> FastAPI:
 
     for router in routers:
         app.include_router(router)
-
+    logger.INFO("APP created with success.")
     return app

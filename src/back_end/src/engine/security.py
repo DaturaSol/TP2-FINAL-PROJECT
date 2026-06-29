@@ -54,6 +54,7 @@ def hash_password(password: str) -> str:
     dk = hashlib.pbkdf2_hmac(_ALGORITHM, password.encode(), salt, _ITERATIONS)
     salt_b64 = base64.urlsafe_b64encode(salt).rstrip(b"=").decode()
     hash_b64 = base64.urlsafe_b64encode(dk).rstrip(b"=").decode()
+    logger.INFO("Hash created with success")
     return (
         f"pbkdf2_{_ALGORITHM}"
         f"{_SEP}{_ITERATIONS}"
@@ -149,6 +150,7 @@ def verify_token(token: str) -> int | None:
     # Post: returns the encoded user id iff the signature is valid, else None
     parts = token.split(_TOKEN_SEP)
     if len(parts) != 2:
+        logger.warning("In verify_token parts is different of the t2")
         return None
     payload_b64, signature_b64 = parts
 
@@ -156,6 +158,7 @@ def verify_token(token: str) -> int | None:
         _token_secret(), payload_b64.encode(), hashlib.sha256
     ).digest()
     if not hmac.compare_digest(_b64(expected), signature_b64):
+        logger.warning("tokens expected and signature_b64 are differents")
         return None
 
     try:
@@ -163,8 +166,10 @@ def verify_token(token: str) -> int | None:
         decoded = base64.urlsafe_b64decode(payload_b64 + padding)
         payload = json.loads(decoded)
     except ValueError:
+        logger.warning("Token invalid")
         return None
     if not isinstance(payload, dict):
+        logger.warning(f"Token payload is not a dict: {type(payload)}")
         return None
 
     uid = payload.get("uid")

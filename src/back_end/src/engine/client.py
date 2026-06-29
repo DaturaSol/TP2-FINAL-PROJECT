@@ -10,9 +10,11 @@ registration flow.
 """
 
 from aiohttp import ClientSession, ClientTimeout
+import logging
 
 from engine.schemas.outgoing import BackEndRequest
 
+logger = logging.getLogger(__name__)
 
 async def post_request(
     session: ClientSession,
@@ -55,4 +57,5 @@ async def post_request(
         timeout=ClientTimeout(total=timeout),
     ) as resp:
         data: dict[str, object] = await resp.json()
+        logger.INFO("Decoding JSON into a dictionary is working correctly.")
         return data
