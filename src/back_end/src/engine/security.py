@@ -54,7 +54,6 @@ def hash_password(password: str) -> str:
     dk = hashlib.pbkdf2_hmac(_ALGORITHM, password.encode(), salt, _ITERATIONS)
     salt_b64 = base64.urlsafe_b64encode(salt).rstrip(b"=").decode()
     hash_b64 = base64.urlsafe_b64encode(dk).rstrip(b"=").decode()
-    logger.INFO("Hash created with success")
     return (
         f"pbkdf2_{_ALGORITHM}"
         f"{_SEP}{_ITERATIONS}"
@@ -67,6 +66,9 @@ def verify_password(password: str, hashed: str) -> bool:
     """Verify a plaintext password against a stored PBKDF2-SHA256 hash.
 
     Args:
+    Use code with caution.
+    ￼
+
         password: Plaintext candidate password.
         hashed: Value previously returned by :func:`hash_password`.
 
