@@ -66,9 +66,6 @@ def verify_password(password: str, hashed: str) -> bool:
     """Verify a plaintext password against a stored PBKDF2-SHA256 hash.
 
     Args:
-    Use code with caution.
-    ￼
-
         password: Plaintext candidate password.
         hashed: Value previously returned by :func:`hash_password`.
 
